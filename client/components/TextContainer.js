@@ -11,7 +11,25 @@ import "./TextContainer.scss";
 const TextContainer = (props) => {
     return(
         <div className="textContainer">
-            <h1>In Lobby:</h1>
+            {props.users ?
+                (
+                    <div>
+                        <h1>In Lobby:</h1>
+                        <div className="activeContainer">
+                            <h2>
+                                {props.users.map(user => {
+                                    return (
+                                        <div key={user.name} className="activeItem">
+                                            {user.name}
+                                            <img src={onlineIcon} />
+                                        </div>
+                                    );
+                                })}
+                            </h2>
+                        </div>
+                    </div>
+                ) : null
+            }
         </div>
     );
 };
