@@ -1,4 +1,3 @@
-
 import Layout from "../components/IndexLayout.js";
 
 const Index = () => {
