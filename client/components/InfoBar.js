@@ -13,7 +13,7 @@ const InfoBar = (props) => {
                     className="onlineIcon"
                     src={onlineIcon}
                 />
-                <h3>{`Room: ${props.room} User: ${props.name}`}</h3>
+                <h3>{`Room: ${props.room}`}</h3>
             </div>
             <div className="rightInnerContainer">
                 <Link href="/">

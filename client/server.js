@@ -1,6 +1,7 @@
 const express = require('express');
 const socketio = require('socket.io');
 const http = require('http');
+
 const app = express();
 const server = http.Server(app);
 const io = socketio(server);
@@ -9,7 +10,9 @@ const dev = process.env.NODE_ENV;
 const nextApp = next({ dev });
 const nextHandler = nextApp.getRequestHandler();
 const PORT = process.env.PORT || 5000;
-const cors = require('cors');
+// const cors = require('cors');
+
+const router = require('./router');
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./database.js');
 
@@ -50,11 +53,12 @@ io.on('connection', (socket) => {
     });
 });
 
+// this make the server port address also see code on the frontend
 nextApp.prepare().then(() => {
     app.get('*', (req, res) => {
         return nextHandler(req, res);
     });
-
+    
     server.listen(PORT, (err) => {
         if (err) throw err
         console.log(`Server has started on port ${PORT}.`);
