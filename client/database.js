@@ -1,5 +1,7 @@
 const users = []; // empty array of users
 
+const messageLog = {}; // server
+
 const addUser = ({ id, name, room }) => {
     name = name.trim().toLowerCase();
     room = room.trim().toLowerCase();
@@ -9,15 +11,48 @@ const addUser = ({ id, name, room }) => {
         // name and room is similar to the new user
         return user.room === room && user.name === name;
     });
+
+    const roomExists = users.find((user) => {
+        // for each user, check if a user's room exists
+        return user.room === room;
+    });
     
     if (existingUser) {
         return { error: 'Username is taken.' };
+    }
+
+    // new storage from room contents
+    if (!roomExists) {
+        messageLog[room] = [];
     }
 
     const newUser = { id, name, room };
     users.push(newUser);
 
     return { user: newUser }; // returns the user object within an object
+}
+
+// adds new message to specific room
+const addMessage = ( {room, name, text} ) => {
+    const roomArray = messageLog[room];
+    const message = {
+        name: name,
+        text: text
+    };
+
+    roomArray.push(message);
+}
+
+// deletes room if no users are inside
+const deleteRoom = (name) => {
+    const roomExists = users.find((user) => {
+        // for each user, check if a user's room exists
+        return user.room === name;
+    });
+
+    if (!roomExists) {
+        delete messageLog[name];
+    }
 }
 
 const removeUser = (id) => {
@@ -39,4 +74,8 @@ const getUsersInRoom = (room) => {
     return users.filter((user) => user.room === room);
 }
 
-module.exports = { addUser, removeUser, getUser, getUsersInRoom };
+const getHistory = (room) => {
+    return messageLog[room];
+}
+
+module.exports = { addUser, removeUser, getUser, getUsersInRoom, addMessage, deleteRoom, getHistory };

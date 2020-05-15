@@ -35,7 +35,7 @@ const Chat = (props) => {
 
         setMyname(name); // if effect changes, include in [] to track the change
         setRoomx(room); // or leave out [] entirely
-
+        
         socket.emit("join", { name: name, room: room }, (str) => {
             // if str isn't null, error has occured
             if (str) {
@@ -62,8 +62,6 @@ const Chat = (props) => {
         });
 
         socket.on("roomData", (obj) => {
-            //console.log("updating room data");
-            //console.log(obj);
             setUsers(obj.users);
         });
     }, [Router]); // when router effect changes, need to make new useEffect object
