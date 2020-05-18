@@ -29,13 +29,14 @@ const Chat = (props) => {
     // update can be caused by changes to prop and state
     // unmounting before component removed
     useEffect(() => {
-        socket = io(ENDPOINT); // no arguments sets connection to whatever endpoint specified on server.js
+        socket = io(ENDPOINT, {query: "name=chatty"});
+        // no arguments sets connection to whatever endpoint specified on server.js
         // but doesn't work on connection from port specified on npm run dev
         const { name, room } = Router.query;
-
+        
         setMyname(name); // if effect changes, include in [] to track the change
         setRoomx(room); // or leave out [] entirely
-        
+
         socket.emit("join", { name: name, room: room }, (str) => {
             // if str isn't null, error has occured
             if (str) {
