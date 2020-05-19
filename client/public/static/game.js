@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import GameScene from '/static/gameScene.js';
 
 let gameScene = new GameScene();
@@ -14,11 +13,6 @@ let config = {
             debug: false
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: updaate
-    }
 };
 
 let game = new Phaser.Game(config);
