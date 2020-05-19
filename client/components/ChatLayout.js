@@ -99,7 +99,7 @@ const Chat = (props) => {
                 </div>
                 <TextContainer users={users} />
                 <script src="//cdn.jsdelivr.net/npm/phaser@3.22.0/dist/phaser.js"></script>
-                <script type="module" src='/static/game.js'></script>
+                <script type="module" src='static/game.js'></script>
             </div>
         </div>
     );
